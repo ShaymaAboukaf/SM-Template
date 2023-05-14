@@ -7,6 +7,7 @@ function showPostInfo() {
   axios
     .get(`${BASE_URL}/posts/${postId}`)
     .then((res) => {
+      toggleLoader(true);
       const postInfo = res.data.data;
       const comments = res.data.data.comments;
       const commentsArr = comments
@@ -76,7 +77,8 @@ function showPostInfo() {
       document.querySelector(".post-detail").innerHTML = content;
       setupUI();
     })
-    .catch((err) => showAlert.log(err, response.data.message, "danger"));
+    .catch((err) => showAlert.log(err, response.data.message, "danger"))
+    .then(() => toggleLoader(false));
 }
 
 function addComment() {
@@ -95,10 +97,12 @@ function addComment() {
   axios
     .post(url, bodyParams, config)
     .then(() => {
+      toggleLoader(true);
       showPostInfo();
       showAlert("Comment Added Successfully!", "success");
     })
-    .catch((err) => showAlert(err.response.data.message, "danger"));
+    .catch((err) => showAlert(err.response.data.message, "danger"))
+    .finally(() => toggleLoader(false));
 }
 
 showPostInfo();

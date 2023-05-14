@@ -37,7 +37,7 @@ function getPosts() {
           let deleteBtn = "";
           if (isMyPost) {
             editBtn = `<button
-                class="btn btn-warning text-white ms-auto"
+                class="btn btn-warning text-white ms-auto mb-1"
                 onclick="editPost('${encodeURIComponent(
                   JSON.stringify(post)
                 )}')"
